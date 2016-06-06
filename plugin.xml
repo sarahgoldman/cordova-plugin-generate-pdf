@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	id="cordova-plugin-pdf-generator"
+	version="0.0.1">
+	<name>PDFGenerator</name>
+	<description>Cordova PDF Generator Plugin"</description>
+	<license>MIT</license>
+
+	<js-module src="www/PDFGenerator.js" name="PDFGenerator">
+		<clobbers target="window.PDFGenerator" />
+	</js-module>
+
+	<!-- ios -->
+	<platform name="ios">
+		<config-file target="config.xml" parent="/*">
+			<feature name="PDFGenerator">
+				<param name="ios-package" value="CDVPDFGenerator" />
+			</feature>
+		</config-file>
+		<header-file src="src/ios/CDVPDFGenerator.h" />
+		<source-file src="src/ios/CDVPDFGenerator.m" />
+	</platform>
+
+</plugin>

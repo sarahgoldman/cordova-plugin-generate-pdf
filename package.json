@@ -1,0 +1,13 @@
+{
+  "name": "cordova-plugin-pdf-generator",
+  "version": "0.0.1",
+  "description": "Cordova PDF Generator Plugin",
+  "cordova": {
+    "id": "cordova-plugin-pdf-generator",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "author": "Sarah Goldman",
+  "license": "MIT"
+}
