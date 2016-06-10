@@ -68,7 +68,6 @@ function _getFormattedHtml(wrapperClass) {
         // check to see if there is a data-canvas-data-url attribute,
         // which is compatible with the ChartNew.js plugin, and use
         // that by default, otherwise just get snapshot of the live canvas
-        console.log(canvases[i].getAttribute("data-canvas-data-url"));
         if (canvases[i].getAttribute("data-canvas-data-url")) {
             image.src = canvases[i].getAttribute("data-canvas-data-url");
         } else {
