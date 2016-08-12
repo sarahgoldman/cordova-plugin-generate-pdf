@@ -168,15 +168,48 @@
     return fileURL;
 }
 
+- (void)cleanupAndSendSuccess
+{
+    [self deleteFile];
+    NSString *message;
+    if (self.application) {
+        message = [NSString stringWithFormat:@"{\"success\" : true, \"application\": \"%@\"}", self.application];
+    } else {
+        message = @"{\"success\" : true, \"application\": false}";
+    }
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.command.callbackId];
+}
+
 # pragma mark - UIDocumentInteractionControllerDelegate
+
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller
+        willBeginSendingToApplication:(NSString *)application
+{
+    NSLog(@"WILL SEND WITH: %@", application);
+
+    // store that we are sending with an application
+    self.isSending = YES;
+    self.application = application;
+}
 
 - (void)documentInteractionController:(UIDocumentInteractionController *)controller
            didEndSendingToApplication:(NSString *)application
 {
-    NSLog(@"SENT");
-    [self deleteFile];
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"{\"success\" : true}"];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.command.callbackId];
+    NSLog(@"END SENDING WITH APPLICATION: %@", self.application);
+    
+    [self cleanupAndSendSuccess];
+}
+
+- (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller
+{
+    NSLog(@"DISMISSED MENU");
+
+    // only complete process here if we're not in the middle of sending to another app,
+    // otherwise it will occur when the document is finished sending to that app
+    if (!self.isSending) {
+        [self cleanupAndSendSuccess];
+    }
 }
 
 @end

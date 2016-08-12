@@ -19,6 +19,8 @@
 @property(nonatomic, strong) UIDocumentInteractionController *docController;
 @property(nonatomic, strong) CDVInvokedUrlCommand *command;
 @property(nonatomic, strong) NSString *filepath;
+@property(nonatomic, strong) NSString *application;
+@property (nonatomic, assign) BOOL isSending;
 
 - (void)generatePDF:(CDVInvokedUrlCommand*)command;
 
