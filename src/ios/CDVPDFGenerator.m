@@ -16,7 +16,8 @@
 {
 
     // get parameters from cordova command
-    NSString *filename = [NSString stringWithFormat:@"%@.pdf", [command.arguments objectAtIndex:0]];
+    NSString *initialFilename = [NSString stringWithFormat:@"%@.pdf", [command.arguments objectAtIndex:0]];
+    NSString *filename = [initialFilename stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *htmlString = [command.arguments objectAtIndex:1];
     NSString *orientation = [command.arguments objectAtIndex:2];
 
