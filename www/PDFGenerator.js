@@ -113,6 +113,10 @@ PDFGenerator.prototype.generate = function(options) {
 
    var orientation = (options.orientation === 'landscape') ? options.orientation : 'portrait'; // default 'portrait'
 
+   var leftPos = options.leftPosition || '350'; // default '350'
+               
+   var topPos = options.topPosition || '75'; // default '75'
+
    // make sure callbacks are functions or reset to null
    var successCallback = (options.success && typeof(options.success) === 'function') ? options.success : this.defaultCallback;
 
@@ -122,7 +126,7 @@ PDFGenerator.prototype.generate = function(options) {
    var htmlString = _getFormattedHtml(wrapperClass);
 
    // set the arguments to be passed to the iOS method
-   var args = [filename,htmlString,orientation];
+   var args = [filename,htmlString,orientation,leftPos,topPos];
 
    // make the call
    cordova.exec(successCallback, errorCallback, this.CLASS, this.METHOD, args);

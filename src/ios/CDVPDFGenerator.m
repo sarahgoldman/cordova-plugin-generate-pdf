@@ -20,8 +20,13 @@
     NSString *filename = [initialFilename stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *htmlString = [command.arguments objectAtIndex:1];
     NSString *orientation = [command.arguments objectAtIndex:2];
+    NSString *xPos = [command.arguments objectAtIndex:3];
+    NSString *yPos = [command.arguments objectAtIndex:4];
 
     self.command = command;
+
+    self.leftPos = xPos;
+    self.topPos = yPos;
 
     dispatch_async(dispatch_get_main_queue(), ^{
 
@@ -117,7 +122,7 @@
         self.docController.UTI = @"application/pdf";
 
         // popover location
-        CGRect rect = CGRectMake(0, 0, 1000.0f, 150.0f);
+        CGRect rect = CGRectMake([self.leftPos floatValue], [self.topPos floatValue], [self.leftPos floatValue], [self.topPos floatValue]);
 
         // open the file and return the result to a boolean
         BOOL wasOpened = [self.docController presentOptionsMenuFromRect:rect inView:self.viewController.view animated:NO];
